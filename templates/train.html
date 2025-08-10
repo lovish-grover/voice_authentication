@@ -1,0 +1,35 @@
+<!-- templates/train.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Train Voice Authentication Model</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='recorder.js') }}"></script>
+</head>
+<body>
+    <h1>Train Voice Authentication Model</h1>
+    <p>Upload or record 15-second audio files for multiple users. Current users: {{ user_count }}</p>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="flash">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form id="trainForm" method="POST" enctype="multipart/form-data">
+        <label>User Name:</label><br>
+        <input type="text" name="user_name" required><br><br>
+        <label>15-Second Audio (Upload or Record):</label><br>
+        <input type="file" name="audio_file" accept="audio/wav"><br><br>
+        <button type="submit">Upload Audio</button>
+        <button type="button" id="recordTrain">Record 15s Audio</button>
+    </form>
+    
+    <form method="POST" action="{{ url_for('train_model') }}">
+        <button type="submit">Train Model</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!-- templates/verify.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify Speaker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='recorder.js') }}"></script>
+</head>
+<body>
+    <h1>Verify Speaker</h1>
+    <p>Upload or record a 3-second audio file to identify the speaker.</p>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="flash">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form id="verifyForm" method="POST" enctype="multipart/form-data">
+        <label>3-Second Audio (Upload or Record):</label><br>
+        <input type="file" name="audio_file" accept="audio/wav"><br><br>
+        <button type="submit">Upload Audio</button>
+        <button type="button" id="recordVerify">Record 3s Audio</button>
+    </form>
+</body>
+</html>
